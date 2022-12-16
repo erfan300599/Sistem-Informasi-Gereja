@@ -4,8 +4,74 @@
 			<i class="fa fa-edit"></i> Tambah Data
 		</h3>
 	</div>
-	<form action="" method="post" enctype="multipart/form-data">
-		<div class="card-body">
+	<div class="card-body">
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">Apakah Anda Kepala Keluarga ?</label>
+			<div class="col-sm-6">
+				<button onclick="funKeluarga()" class="btn btn-primary">Ya</button>
+				<button onclick="funNonKeluarga()" class="btn btn-primary">Tidak</button>
+			</div>
+		</div>
+		<form action="" method="post" enctype="multipart/form-data">
+			<div id="keluarga">
+				<div id="divKeluarga" style="display: none">
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">No Kartu Keluarga</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="kepalaKeluarga2" id="no_kk" name="no_kk" placeholder="No Kartu Keluarga">
+						</div>
+					</div>
+				</div>
+
+				<div id="divNonKeluarga" style="display: none">
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Kepala Keluarga</label>
+						<div class="col-sm-6">
+							<select name="idkk" id="kepala_keluarga" class="form-control">
+								<option value="" disabled selected>- Pilih Kepala Keluarga -</option>
+								<?php
+								// ambil data dari database
+								$query = "SELECT * FROM tb_umat JOIN tb_kk ON tb_umat.nama_umat = tb_kk.kepala_keluarga ";
+								$hasil = mysqli_query($koneksi, $query);
+								while ($row = mysqli_fetch_array($hasil))
+								{
+								?>
+									<option value="<?= $row['id_kk'] ?>">
+										<?php echo $row['nama_umat'] ?>
+									</option>
+								<?php
+								}
+								?>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Relasi dengan Kepala keluarga</label>
+						<div class="col-sm-3">
+							<select name="hubungan" id="hubungan" class="form-control">
+								<option value="" disabled selected>- Hub Keluarga -</option>
+								<option>Istri</option>
+								<option>Anak</option>
+								<option>Orang Tua</option>
+								<option>Mertua</option>
+								<option>Menantu</option>
+								<option>Cucu</option>
+								<option>Famili Lain</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<br>
+			<br>
+
+
+
+
+
+
 
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">NIK</label>
@@ -78,7 +144,7 @@
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Umur</label>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" id="inputUmur" readonly>
+					<input name="umur" type="text" class="form-control" id="inputUmur" readonly>
 				</div>
 			</div>
 
@@ -108,6 +174,27 @@
 				</div>
 				<div class="col-sm-3">
 					<input type="text" class="form-control" id="rw" name="rw" placeholder="RW" required>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Kecamatan</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="kec" name="kec" placeholder="Kecamatan" required>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Kabupaten</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="kab" name="kab" placeholder="Kabupaten" required>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Provinsi</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="prov" name="prov" placeholder="Provinsi" required>
 				</div>
 			</div>
 
@@ -220,13 +307,16 @@
 				</div>
 			</div> -->
 
-		</div>
-		<div class="card-footer">
-			<input type="submit" name="Simpan" value="Simpan" class="btn btn-info">
-			<a href="?page=data-umat" title="Kembali" class="btn btn-secondary">Batal</a>
-		</div>
+	</div>
+	<div class="card-footer">
+		<input type="submit" name="Simpan" value="Simpan" class="btn btn-info">
+		<a href="?page=data-umat" title="Kembali" class="btn btn-secondary">Batal</a>
+	</div>
 	</form>
 </div>
+
+
+
 
 
 <?php
@@ -255,11 +345,42 @@ if (isset($_POST['Simpan']))
 
             'Ada')";
 	$query_simpan = mysqli_query($koneksi, $sql_simpan);
+
+	if (isset($_POST['no_kk']))
+	{
+		// Simpan Data Kartu Keluarga
+		$sql_simpan2 = "INSERT INTO tb_kk (no_kk, kepala_keluarga, alamat, rt, rw, kec, kab, prov) VALUES (
+		'" . $_POST['no_kk'] . "',
+		'" . $_POST['nama_umat'] . "',
+		'" . $_POST['alamat'] . "',
+		'" . $_POST['rt'] . "',
+		'" . $_POST['rw'] . "',
+		'" . $_POST['kec'] . "',
+		'" . $_POST['kab'] . "',
+		'" . $_POST['prov'] . "')";
+		$query_simpan2 = mysqli_query($koneksi, $sql_simpan2);
+	}
+	if (isset($_POST['hubungan'])) 
+	{
+		$sql = "SELECT MAX(id_umat) FROM TB_UMAT";
+		$sql2 = mysqli_query($koneksi, $sql);
+		$sql2 = mysqli_fetch_assoc($sql2);
+
+		$idUmat = $sql2['MAX(id_umat)'];
+
+		$sql_simpan2 = "INSERT INTO tb_anggota (id_kk, id_umat, hubungan) VALUES( 
+            '".$_POST['idkk']."',
+            '".$idUmat."',
+            '".$_POST['hubungan']."')";
+        $query_simpan2 = mysqli_query($koneksi, $sql_simpan2);
+	}
+
+
 	mysqli_close($koneksi);
 
-	if ($query_simpan)
+	if ($query_simpan2)
 	{
-		echo "<script>
+		echo  "<script>
       Swal.fire({title: 'Tambah Data Berhasil',text: '',icon: 'success',confirmButtonText: 'OK'
       }).then((result) => {if (result.value){
           window.location = 'index.php?page=data-umat';

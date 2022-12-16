@@ -53,9 +53,9 @@
 							</a>
 						</td>
 						<td>
-							<a href="?page=edit-kartu&kode=<?php echo $data['id_kk']; ?>" title="Ubah" class="btn btn-success btn-sm">
+							<!-- <a href="?page=edit-kartu&kode=<?php echo $data['id_kk']; ?>" title="Ubah" class="btn btn-success btn-sm">
 								<i class="fa fa-edit"></i>
-							</a>
+							</a> -->
 							<a href="?page=del-kartu&kode=<?php echo $data['id_kk']; ?>" onclick="return confirm('Apakah anda yakin hapus data ini ?')"
 							 title="Hapus" class="btn btn-danger btn-sm">
 								<i class="fa fa-trash"></i>

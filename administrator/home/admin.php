@@ -95,7 +95,7 @@
 			<div class="icon">
 				<i class="ion ion-male"></i>
 			</div>
-			<a href="index.php?page=data-umat" class="small-box-footer">Selengkapnya
+			<a href="index.php?page=data-umat-laki" class="small-box-footer">Selengkapnya
 				<i class="fas fa-arrow-circle-right"></i>
 			</a>
 		</div>
@@ -114,7 +114,7 @@
 			<div class="icon">
 				<i class="ion ion-female"></i>
 			</div>
-			<a href="index.php?page=data-umat" class="small-box-footer">Selengkapnya
+			<a href="index.php?page=data-umat-perempuan" class="small-box-footer">Selengkapnya
 				<i class="fas fa-arrow-circle-right"></i>
 			</a>
 		</div>

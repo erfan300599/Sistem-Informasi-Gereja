@@ -42,7 +42,7 @@
 				</div>
 			</div>
 
-			<div class="form-group row">
+			<!-- <div class="form-group row">
 				<label class="col-sm-2 col-form-label">Anggota</label>
 				<div class="col-sm-4">
 					<select name="id_umat" id="id_umat" class="form-control select2bs4" required>
@@ -77,7 +77,7 @@
 					</select>
 				</div>
 				<input type="submit" name="Simpan" value="Tambah" class="btn btn-success">
-			</div>
+			</div> -->
 
 			<div class="card-body">
 				<div class="table-responsive">
@@ -88,7 +88,7 @@
 								<th>Nama</th>
 								<th>Jenis Kelamin</th>
 								<th>Hubungan Keluarga</th>
-								<th>Aksi</th>
+								<!-- <th>Aksi</th> -->
 							</tr>
 						</thead>
 						<tbody>
@@ -113,12 +113,12 @@
 								<td>
 									<?php echo $data['hubungan']; ?>
 								</td>
-								<td>
+								<!-- <td>
 									<a href="?page=del-anggota&kode=<?php echo $data['id_anggota']; ?>" onclick="return confirm('Apakah anda yakin hapus data ini ?')"
 									 title="Hapus" class="btn btn-danger btn-sm">
 										<i class="fa fa-trash"></i>
 									</a>
-								</td>
+								</td> -->
 							</tr>
 
 							<?php

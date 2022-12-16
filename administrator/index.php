@@ -2,9 +2,12 @@
 
 //Mulai Sesion
 session_start();
-if (isset($_SESSION["ses_username"]) == "") {
+if (isset($_SESSION["ses_username"]) == "")
+{
 	header("location: login.hophp");
-} else {
+}
+else
+{
 	$data_id = $_SESSION["ses_id"];
 	$data_nama = $_SESSION["ses_nama"];
 	$data_user = $_SESSION["ses_username"];
@@ -14,10 +17,11 @@ if (isset($_SESSION["ses_username"]) == "") {
 //KONEKSI DB
 include "inc/koneksi.php";
 //query untuk tabel pesan ata mengambil jumlah pesan pada tabel pesan
-  $sql = $koneksi->query("SELECT COUNT(id_pesan) as pesan  from tb_pesan");
-  while ($data= $sql->fetch_assoc()) {
-    $pesan=$data['pesan'];
-  }
+$sql = $koneksi->query("SELECT COUNT(id_pesan) as pesan  from tb_pesan");
+while ($data = $sql->fetch_assoc())
+{
+	$pesan = $data['pesan'];
+}
 
 ?>
 
@@ -69,23 +73,23 @@ include "inc/koneksi.php";
 			<!-- SEARCH FORM -->
 			<ul class="navbar-nav ml-auto">
 
-<!-- Menampilkan jumlah pesan -->
-	<!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell text-white"></i>
-          <span class="badge badge-warning navbar-badge"><?php echo $pesan?></span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">Pemberitahuan</span>
-          <div class="dropdown-divider"></div>
-          <a href="?page=data-pesan" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> <?php echo $pesan?> Pesan Baru
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="?page=data-pesan"class="dropdown-item dropdown-footer">Lihat Semua Pemberitahuan</a>
-        </div>
-      </li>
+				<!-- Menampilkan jumlah pesan -->
+				<!-- Notifications Dropdown Menu -->
+				<li class="nav-item dropdown">
+					<a class="nav-link" data-toggle="dropdown" href="#">
+						<i class="far fa-bell text-white"></i>
+						<span class="badge badge-warning navbar-badge"><?php echo $pesan ?></span>
+					</a>
+					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+						<span class="dropdown-item dropdown-header">Pemberitahuan</span>
+						<div class="dropdown-divider"></div>
+						<a href="?page=data-pesan" class="dropdown-item">
+							<i class="fas fa-envelope mr-2"></i> <?php echo $pesan ?> Pesan Baru
+						</a>
+						<div class="dropdown-divider"></div>
+						<a href="?page=data-pesan" class="dropdown-item dropdown-footer">Lihat Semua Pemberitahuan</a>
+					</div>
+				</li>
 
 				<li class="nav-item d-none d-sm-inline-block">
 					<a href="index.php" class="nav-link">
@@ -130,10 +134,11 @@ include "inc/koneksi.php";
 				<!-- Sidebar Menu -->
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-<!-- Menampilkan menu berdasarkan level pengguna -->
+						<!-- Menampilkan menu berdasarkan level pengguna -->
 						<!-- Level  -->
 						<?php
-						if ($data_level == "Administrator") {
+						if ($data_level == "Administrator")
+						{
 						?>
 							<li class="nav-item">
 								<a href="index.php" class="nav-link">
@@ -246,24 +251,24 @@ include "inc/koneksi.php";
 								</a>
 								<ul class="nav nav-treeview">
 
-								<li class="nav-item">
+									<li class="nav-item">
 										<a href="?page=laporan-kub-umat" class="nav-link">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Data KUB Umat</p>
 										</a>
-								</li>
-								<li class="nav-item">
-									<a href="?page=laporan-lingkungan-umat" class="nav-link">
-										<i class="nav-icon far fa-circle text-warning"></i>
-										<p>Data Lingkungan Umat</p>
-									</a>
-								</li>
-								<li class="nav-item">
+									</li>
+									<li class="nav-item">
+										<a href="?page=laporan-lingkungan-umat" class="nav-link">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Data Lingkungan Umat</p>
+										</a>
+									</li>
+									<li class="nav-item">
 										<a href="?page=laporan-stasi-umat" class="nav-link">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Data Stasi Umat</p>
 										</a>
-								</li>
+									</li>
 								</ul>
 							</li>
 							<li class="nav-item has-treeview">
@@ -295,6 +300,13 @@ include "inc/koneksi.php";
 									</li>
 
 									<li class="nav-item">
+										<a href="?page=data-slider" class="nav-link">
+											<i class="nav-icon far fa-circle text-warning"></i>
+											<p>Data Slider</p>
+										</a>
+									</li>
+
+									<li class="nav-item">
 										<a href="?page=edit-pengaturan" class="nav-link">
 											<i class="nav-icon far fa-circle text-warning"></i>
 											<p>Pengaturan</p>
@@ -322,7 +334,7 @@ include "inc/koneksi.php";
 							</li>
 
 						<?php
-						} 
+						}
 						?>
 
 
@@ -351,12 +363,14 @@ include "inc/koneksi.php";
 			<section class="content">
 				<!-- /. WEB DINAMIS DISINI ############################################################################### -->
 				<div class="container-fluid">
-    <!-- Memanggil dan menampilkan halaman misalkan menampilkan isi tabel pengguna -->
+					<!-- Memanggil dan menampilkan halaman misalkan menampilkan isi tabel pengguna -->
 					<?php
-					if (isset($_GET['page'])) {
+					if (isset($_GET['page']))
+					{
 						$hal = $_GET['page'];
 
-						switch ($hal) {
+						switch ($hal)
+						{
 
 								//Pengguna
 							case 'data-pengguna':
@@ -395,6 +409,12 @@ include "inc/koneksi.php";
 								//umat
 							case 'data-umat':
 								include "admin/umat/data_umat.php";
+								break;
+							case 'data-umat-laki':
+								include "admin/umat/data_umat_laki.php";
+								break;
+							case 'data-umat-perempuan':
+								include "admin/umat/data_umat_perempuan.php";
 								break;
 							case 'add-umat':
 								include "admin/umat/add_umat.php";
@@ -508,7 +528,21 @@ include "inc/koneksi.php";
 							case 'del-kalender':
 								include "website/kalender/del_kalender.php";
 								break;
-								
+
+								//slider
+							case 'data-slider':
+								include "website/slider/data_slider.php";
+								break;
+							case 'add-slider':
+								include "website/slider/add_slider.php";
+								break;
+							case 'edit-slider':
+								include "website/slider/edit_slider.php";
+								break;
+							case 'del-slider':
+								include "website/slider/del_slider.php";
+								break;
+
 								//pesan	
 							case 'data-pesan':
 								include "admin/pesan/data_pesan.php";
@@ -522,15 +556,21 @@ include "inc/koneksi.php";
 								echo "<center><h1> ERROR !</h1></center>";
 								break;
 						}
-					} else {
+					}
+					else
+					{
 						// Auto Halaman Home Pengguna atau menampilkan halaman dashboard
-						if ($data_level == "Administrator") {
+						if ($data_level == "Administrator")
+						{
 							include "home/admin.php";
-						} elseif ($data_level == "Kaur Pemerintah") {
+						}
+						elseif ($data_level == "Kaur Pemerintah")
+						{
 							include "home/kaur.php";
 						}
 					}
 					?>
+
 
 				</div>
 			</section>
@@ -603,6 +643,78 @@ include "inc/koneksi.php";
 				theme: 'bootstrap4'
 			})
 		})
+	</script>
+
+	<script>
+		// const targetDiv = document.getElementById("third");
+		// const btn = document.getElementById("toggle");
+		// btn.onclick = function() {
+		// 	if (targetDiv.style.display !== "none") {
+		// 		targetDiv.style.display = "none";
+		// 	} else {
+		// 		targetDiv.style.display = "block";
+		// 	}
+		// };
+
+		const targetkepalaKeluarga = document.getElementById("kepalaKeluarga");
+		const btnKeluarga = document.getElementById("btnKeluarga");
+
+		function funKeluarga() {
+			const jskeluarga = document.getElementById("divKeluarga");
+			if (jskeluarga.style.display === "none") {
+				jskeluarga.style.display = "block";
+			} else {
+				jskeluarga.style.display = "none";
+			}
+		}
+
+		function funNonKeluarga() {
+			const jsnonkeluarga = document.getElementById("divNonKeluarga");
+			if (jsnonkeluarga.style.display === "none") {
+				jsnonkeluarga.style.display = "block";
+			} else {
+				jsnonkeluarga.style.display = "none";
+			}
+		}
+
+
+		function hitungUmur(tanggalLahir) {
+			let dob = new Date(tanggalLahir);
+			let month_diff = Date.now() - dob.getTime();
+			let age_dt = new Date(month_diff);
+			let year = age_dt.getUTCFullYear();
+			let age = Math.abs(year - 1970);
+
+			document.getElementById("inputUmur").value = age.toString();
+		}
+
+		$(document).ready(function() {
+			let tanggalLahir = document.getElementById("tanggal_lahirA").value;
+
+			let dob = new Date(tanggalLahir);
+			let month_diff = Date.now() - dob.getTime();
+			let age_dt = new Date(month_diff);
+			let year = age_dt.getUTCFullYear();
+			let age = Math.abs(year - 1970);
+
+			console.log(age);
+
+			document.getElementById("inputUmur").value = age.toString();
+		});
+
+		$(document).ready(function() {
+			let tanggalLahir = document.getElementById("tanggal_lahirA").value;
+
+			let dob = new Date(tanggalLahir);
+			let month_diff = Date.now() - dob.getTime();
+			let age_dt = new Date(month_diff);
+			let year = age_dt.getUTCFullYear();
+			let age = Math.abs(year - 1970);
+
+			console.log(age);
+
+			document.getElementById("inputUmurA").innerHTML = ": " + age.toString();
+		});
 	</script>
 
 </body>

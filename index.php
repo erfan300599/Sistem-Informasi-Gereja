@@ -1,13 +1,19 @@
 <?php
-include'administrator/inc/koneksi.php';
- $sql_cek = "SELECT * FROM tb_pengaturan WHERE id_pengaturan=1";
-        $query_cek = mysqli_query($koneksi, $sql_cek);
-        $data_cek = mysqli_fetch_array($query_cek,MYSQLI_BOTH);
-    if ($data_cek['gambar_gereja']) {
-      $gambar = "administrator/website/gambar/" . $data_cek['gambar_gereja'];
-    } else {
-      $gambar = "administrator/website/gambar/noimage.png";
-    }
+include 'administrator/inc/koneksi.php';
+$sql_cek = "SELECT * FROM tb_pengaturan WHERE id_pengaturan=1";
+$query_cek = mysqli_query($koneksi, $sql_cek);
+$data_cek = mysqli_fetch_array($query_cek, MYSQLI_BOTH);
+if ($data_cek['gambar_gereja'])
+{
+  $gambar = "administrator/website/gambar/" . $data_cek['gambar_gereja'];
+}
+else
+{
+  $gambar = "administrator/website/gambar/noimage.png";
+}
+
+
+
 ?>
 
 
@@ -26,10 +32,8 @@ include'administrator/inc/koneksi.php';
   <link href="administrator/dist/img/logo.png" rel="icon">
 
   <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap"
-    rel="stylesheet">
-<!--   <link href="zoldyck.css" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
+  <!--   <link href="zoldyck.css" rel="stylesheet"> -->
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -67,12 +71,12 @@ include'administrator/inc/koneksi.php';
         <ul>
           <li><a class="active " href="index.php">BERANDA</a></li>
           <li><a href="about.php">TENTANG</a></li>
-<!--           <li><a href="services.html">Services</a></li> -->
-<!--           <li><a href="team.html">Team</a></li> -->
+          <!--           <li><a href="services.html">Services</a></li> -->
+          <!--           <li><a href="team.html">Team</a></li> -->
           <li><a href="news.php">BERITA</a></li>
           <li><a href="activity.php">KEGIATAN</a></li>
           <li><a href="calendar.php">KALENDER</a></li>
-<!--           <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+          <!--           <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
               <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
@@ -101,32 +105,54 @@ include'administrator/inc/koneksi.php';
   <section id="hero" class="d-flex justify-cntent-center align-items-center">
     <div id="heroCarousel" class="container carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
 
-      <!-- Slide 1 -->
-      <div class="carousel-item active">
+      <!-- Slide 1  -->
+      <!-- <div class="carousel-item active">
         <div class="carousel-container">
           <h2 class="animate__animated animate__fadeInDown">Yuk... Kembali Ke Gereja!</h2>
           <p class="animate__animated animate__fadeInUp">Sebab dalam satu Roh kita semua, baik orang Yahudi, maupun orang Yunani, baik budak, maupun orang merdeka, telah dibaptis menjadi satu tubuh dan kita semua diberi minum dari satu Roh. <b class="text text-warning">1 Korintus 12:13</b></p>
           <a href="" class="btn-get-started animate__animated animate__fadeInUp">Selengkapnya</a>
         </div>
-      </div>
+      </div> --> -->
 
       <!-- Slide 2 -->
-      <div class="carousel-item">
+      <!-- <div class="carousel-item">
         <div class="carousel-container">
           <h2 class="animate__animated animate__fadeInDown">Ora Et Labora</h2>
           <p class="animate__animated animate__fadeInUp">Dan segala sesuatu yang kamu lakukan dengan perkataan dan perbuatan, lakukanlah semuanya itu dengan nama Tuhan Yesus, sambil mengucap syukur oleh Dia kepada Allah, Bapa Kita. <b class="text text-warning">Kolose 3:17</b></p>
           <a href="" class="btn-get-started animate__animated animate__fadeInUp">Selengkapnya/a>
         </div>
-      </div>
+      </div> -->
 
       <!-- Slide 3 -->
-      <div class="carousel-item">
+      <!-- <div class="carousel-item">
         <div class="carousel-container">
           <h2 class="animate__animated animate__fadeInDown">Duc In Altum</h2>
           <p class="animate__animated animate__fadeInUp">Bertolaklah ke tempat yang dalam dan tebarkanlah jalamu untuk menangkap ikan. <b class="text text-warning">Lukas 5:4</b></p>
           <a href="" class="btn-get-started animate__animated animate__fadeInUp">Selengkapnya</a>
         </div>
-      </div>
+      </div> --> -->
+
+
+      <?php $query = mysqli_query($koneksi, "SELECT * FROM tb_sliderumat");
+      if (mysqli_num_rows($query) > 0)
+      {
+        $i = 1;
+        while ($data = mysqli_fetch_array($query))
+        { ?>
+          <div class="carousel-item <?= $i == 1 ? "active" : ""  ?>">
+          <?php $i++; ?>
+            <div class="carousel-container">
+              <h2 class="animate__animated animate__fadeInDown"><?= $data['judul']  ?></h2>
+              <p class="animate__animated animate__fadeInUp"><?= $data['isi']  ?></b></p>
+            </div>
+          </div>
+      <?php
+        }
+      }
+      ?>
+
+
+
 
       <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
         <span class="carousel-control-prev-icon bx bx-chevron-left" aria-hidden="true"></span>
@@ -172,7 +198,7 @@ include'administrator/inc/koneksi.php';
             </div>
           </div>
 
-        <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
             <div class="icon-box icon-box-green">
               <div class="icon"><i class="bx bx-tachometer"></i></div>
               <h4 class="title"><a href="">Jumat Pertama</a></h4>
@@ -180,7 +206,7 @@ include'administrator/inc/koneksi.php';
               <p class="description">16.30 - 18.00 WITA</p>
               <p class="description">16.30 - 18.00 WITA</p>
             </div>
-          </div> 
+          </div>
 
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
             <div class="icon-box icon-box-blue">
@@ -204,15 +230,15 @@ include'administrator/inc/koneksi.php';
         <div class="row">
           <div class="col-lg-6 video-box">
             <img id="preview" src="<?php echo $gambar; ?>" class="img-fluid" alt="">
-           <!--  <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video"
+            <!--  <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video"
               data-autoplay="true"></a> -->
           </div>
 
           <div class="col-lg-6 d-flex flex-column justify-content-center p-5">
 
-     <!--        <div class="icon-box"> -->
-              <p class="description">Gereja Kuasi Santo Karolus Agung Orakeri resmi berdiri dengan surat keputusan Uskup Keuskupan Agung Ende No: 104/ 5K/ KUS/ IX/ 2017, tanggal 4 November 2017. Kuasi Santo Karolus Agung Orakeri didirikan sebagai persiapan ke arah Paroki baru pemekaran dari Paroki Santo Eduardus Nangapanda dan cakupan sementara wilayah pelayanan pastoral meliputi Stasi Orakeri, Stasi Marakoja, Stasi Watumite, Stasi Oja dan Stasi Malaara. Pendirian gereja Kuasi Santo Karolus Agung Orakeri disusul dengan pengangkatan Pastor Kuasi Santo Karolus Agung Orakeri oleh Uskup Agung Ende melalui surat keputusan No: 027/ SK/ KUS/ IV/ 2018 tanggal 9 April 2018. Tanggal 20 April 2018. Reverendus Dominus Fidelis Markus Demu dilantik menjadi Pastor Kuasi Santo Karolus Agung Orakeri, oleh Reverendus...<a href="about.php">Read More</a></p>
-<!--             </div> -->
+            <!--        <div class="icon-box"> -->
+            <p class="description">Gereja Kuasi Santo Karolus Agung Orakeri resmi berdiri dengan surat keputusan Uskup Keuskupan Agung Ende No: 104/ 5K/ KUS/ IX/ 2017, tanggal 4 November 2017. Kuasi Santo Karolus Agung Orakeri didirikan sebagai persiapan ke arah Paroki baru pemekaran dari Paroki Santo Eduardus Nangapanda dan cakupan sementara wilayah pelayanan pastoral meliputi Stasi Orakeri, Stasi Marakoja, Stasi Watumite, Stasi Oja dan Stasi Malaara. Pendirian gereja Kuasi Santo Karolus Agung Orakeri disusul dengan pengangkatan Pastor Kuasi Santo Karolus Agung Orakeri oleh Uskup Agung Ende melalui surat keputusan No: 027/ SK/ KUS/ IV/ 2018 tanggal 9 April 2018. Tanggal 20 April 2018. Reverendus Dominus Fidelis Markus Demu dilantik menjadi Pastor Kuasi Santo Karolus Agung Orakeri, oleh Reverendus...<a href="about.php">Read More</a></p>
+            <!--             </div> -->
           </div>
         </div>
 
@@ -220,9 +246,9 @@ include'administrator/inc/koneksi.php';
     </section><!-- End Why Us Section -->
 
     <!-- ======= Features Section ======= -->
-    <section  class="features">
+    <section class="features">
       <div class="container">
-       <div class="section-title">
+        <div class="section-title">
           <h2>Pelayanan</h2>
         </div>
 
@@ -231,7 +257,7 @@ include'administrator/inc/koneksi.php';
             <img src="assets/img/yesus.jpeg" class="img-fluid" alt="">
           </div>
           <div class="col-md-7 pt-4">
-          <h3>Jadwal Pelayanan Sekretariat Paroki</h3><br>
+            <h3>Jadwal Pelayanan Sekretariat Paroki</h3><br>
             <ul>
               <li>Senin - Sabtu : 08.00 - 20.00 WITA & </li>
               <li>Minggu : 08.00 - 15.00 WITA</li>
@@ -252,7 +278,7 @@ include'administrator/inc/koneksi.php';
           <div class="col-md-7 pt-5 order-2 order-md-1">
             <h3>Intensi Misa</h3> <br>
             <p>
-             Umat diberikan kesempatan untuk menyampaikan intensi misa di semua jam misa (harian & mingguan). Permohonan dapat diajukan melalui Sekretariat Paroki, paling lambat 1 (satu) minggu sebelumnya.
+              Umat diberikan kesempatan untuk menyampaikan intensi misa di semua jam misa (harian & mingguan). Permohonan dapat diajukan melalui Sekretariat Paroki, paling lambat 1 (satu) minggu sebelumnya.
             </p>
           </div>
         </div>
@@ -269,7 +295,7 @@ include'administrator/inc/koneksi.php';
       <div class="container">
         <div class="row">
 
-<!--           <div class="col-lg-3 col-md-6 footer-links">
+          <!--           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
@@ -280,7 +306,7 @@ include'administrator/inc/koneksi.php';
             </ul>
           </div> -->
 
-         <!--  <div class="col-lg-3 col-md-6 footer-links">
+          <!--  <div class="col-lg-3 col-md-6 footer-links">
             <h4>Our Services</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
@@ -295,7 +321,7 @@ include'administrator/inc/koneksi.php';
             <h4>Kontak</h4>
             <p>
               <?php echo $data_cek['alamat_gereja']; ?> <br>
-             <?php echo $data_cek['kabupaten_gereja']; ?><br>
+              <?php echo $data_cek['kabupaten_gereja']; ?><br>
               <?php echo $data_cek['provinsi_gereja']; ?><br><br>
               <strong>Nomor Handphone:</strong> <?php echo $data_cek['no_hp']; ?><br>
               <strong>Email:</strong> <?php echo $data_cek['email_gereja']; ?><br>
@@ -311,7 +337,7 @@ include'administrator/inc/koneksi.php';
               <a href="facebook.com/karolus-ende" class="facebook"><i class="bx bxl-facebook"></i></a>
               <a href="instragram.com/karolus-ende" class="instagram"><i class="bx bxl-instagram"></i></a>
               <a href="https://www.youtube.com/c/KOMSOSAGUNGENDEvoca" class="youtube"><i class="bx bxl-youtube"></i></a>
-              <a href="https://api.whatsapp.com/send?phone=<?php echo $data_cek['no_hp']; ?>"class="whatsapp"><i class="bx bxl-whatsapp"></i></a>
+              <a href="https://api.whatsapp.com/send?phone=<?php echo $data_cek['no_hp']; ?>" class="whatsapp"><i class="bx bxl-whatsapp"></i></a>
             </div>
           </div>
 
@@ -321,7 +347,7 @@ include'administrator/inc/koneksi.php';
 
     <div class="container">
       <div class="copyright">
-       Copyright &copy; 2022. Developer -
+        Copyright &copy; 2022. Developer -
         <a target="_blank" href="https://www.youtube.com/channel/UCpusqK_s8aQJvjGuuMofBTA">
           <strong> Sistem Informasi Gereja Kuasi Santo Karolus Agung Orakeri Ende</strong>
         </a>.
@@ -330,8 +356,7 @@ include'administrator/inc/koneksi.php';
     </div>
   </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
@@ -346,31 +371,31 @@ include'administrator/inc/koneksi.php';
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
-<script>
-  function readURL(input) {
+  <script>
+    function readURL(input) {
 
-    if (input.files &&
-      input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        $('#preview').attr('src', e.target.result);
+      if (input.files &&
+        input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          $('#preview').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
       }
-
-      reader.readAsDataURL(input.files[0]);
     }
-  }
 
-  $("#upload").change(function() {
-    readURL(this);
-  });
+    $("#upload").change(function() {
+      readURL(this);
+    });
 
-  $(function() {
-    CKEDITOR.replace('editor1');
-    CKEDITOR.replace('editor2');
-    CKEDITOR.replace('editor1a');
-    CKEDITOR.replace('editor2a');
-  })
-</script>
+    $(function() {
+      CKEDITOR.replace('editor1');
+      CKEDITOR.replace('editor2');
+      CKEDITOR.replace('editor1a');
+      CKEDITOR.replace('editor2a');
+    })
+  </script>
 </body>
 
 </html>
