@@ -6,10 +6,10 @@
 	<!-- /.card-header -->
 	<div class="card-body">
 		<div class="table-responsive">
-			<div>
+			<!-- <div>
 				<a href="?page=add-kartu" class="btn btn-primary">
 					<i class="fa fa-edit"></i> Tambah Data</a>
-			</div>
+			</div> -->
 			<br>
 			<table id="example1" class="table table-bordered table-striped">
 				<thead>

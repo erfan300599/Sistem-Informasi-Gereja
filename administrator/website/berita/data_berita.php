@@ -44,7 +44,7 @@
 							<?php echo $data['tanggal_postingan']; ?>
 						</td>
 						<td>
-							<?php echo $data['admin_postingan']; ?>
+							<?php echo $data['user_postingan']; ?>
 						</td>
 						<td>
 							<a href="?page=edit-berita&kode=<?php echo $data['id_berita']; ?>" title="Ubah"

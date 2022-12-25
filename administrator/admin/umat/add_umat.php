@@ -31,13 +31,13 @@
 								<option value="" disabled selected>- Pilih Kepala Keluarga -</option>
 								<?php
 								// ambil data dari database
-								$query = "SELECT * FROM tb_umat JOIN tb_kk ON tb_umat.nama_umat = tb_kk.kepala_keluarga ";
-								$hasil = mysqli_query($koneksi, $query);
-								while ($row = mysqli_fetch_array($hasil))
+								$queryN = "SELECT * FROM tb_kk JOIN tb_umat  ON tb_umat.nama_umat = tb_kk.kepala_keluarga GROUP BY id_kk";
+								$hasilN = mysqli_query($koneksi, $queryN);
+								while ($row = mysqli_fetch_array($hasilN))
 								{
 								?>
 									<option value="<?= $row['id_kk'] ?>">
-										<?php echo $row['nama_umat'] ?>
+										<?= $row['no_kk'] . '-' . $row['nama_umat'] ?>
 									</option>
 								<?php
 								}
@@ -178,23 +178,14 @@
 			</div>
 
 			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Kecamatan</label>
-				<div class="col-sm-6">
-					<input type="text" class="form-control" id="kec" name="kec" placeholder="Kecamatan" required>
+				<label class="col-sm-2 col-form-label">Kelurahan Desa</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" onkeyup="cariDesa(this.value)" id="exampleDataList" placeholder="Cari Kelurahan/Desa">
 				</div>
-			</div>
-
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Kabupaten</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="kab" name="kab" placeholder="Kabupaten" required>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Provinsi</label>
-				<div class="col-sm-6">
-					<input type="text" class="form-control" id="prov" name="prov" placeholder="Provinsi" required>
+					<select class="form-control" id="daftarDesaaN" name="kelurahanDesa">
+						<option value="" disabled>Pilih Desa</option>
+					</select>
 				</div>
 			</div>
 
@@ -349,7 +340,7 @@ if (isset($_POST['Simpan']))
 	if (($_POST['no_kk'] != ""))
 	{
 		// Simpan Data Kartu Keluarga
-		$sql_simpan2 = "INSERT INTO tb_kk (no_kk, kepala_keluarga, alamat, rt, rw, kec, kab, prov) VALUES (
+		$sql_simpan2 = "INSERT INTO tb_kk (no_kk, kepala_keluarga, alamat, rt, rw, kec, kab, prov, id_kelurahan_desa) VALUES (
 		'" . $_POST['no_kk'] . "',
 		'" . $_POST['nama_umat'] . "',
 		'" . $_POST['alamat'] . "',
@@ -357,10 +348,11 @@ if (isset($_POST['Simpan']))
 		'" . $_POST['rw'] . "',
 		'" . $_POST['kec'] . "',
 		'" . $_POST['kab'] . "',
-		'" . $_POST['prov'] . "')";
+		'" . $_POST['prov'] . "',
+		'" . $_POST['kelurahanDesa'] . "')";
 		$query_simpan2 = mysqli_query($koneksi, $sql_simpan2);
 	}
-	if ($_POST['hubungan'] != "") 
+	if ($_POST['hubungan'] != "")
 	{
 		$sql = "SELECT MAX(id_umat) FROM TB_UMAT";
 		$sql2 = mysqli_query($koneksi, $sql);
@@ -369,10 +361,10 @@ if (isset($_POST['Simpan']))
 		$idUmat = $sql2['MAX(id_umat)'];
 
 		$sql_simpan2 = "INSERT INTO tb_anggota (id_kk, id_umat, hubungan) VALUES( 
-            '".$_POST['idkk']."',
-            '".$idUmat."',
-            '".$_POST['hubungan']."')";
-        $query_simpan2 = mysqli_query($koneksi, $sql_simpan2);
+            '" . $_POST['idkk'] . "',
+            '" . $idUmat . "',
+            '" . $_POST['hubungan'] . "')";
+		$query_simpan2 = mysqli_query($koneksi, $sql_simpan2);
 	}
 
 
@@ -390,7 +382,7 @@ if (isset($_POST['Simpan']))
 	else
 	{
 		echo "<script>
-      Swal.fire({title: 'Tambah Data Gagal',text: '',icon: 'error',confirmButtonText: 'OK'
+      Swal.fire({title: 'Tambah Data Gagal Karena Nomor KK Sudah Ada',text: '',icon: 'error',confirmButtonText: 'OK'
       }).then((result) => {if (result.value){
           window.location = 'index.php?page=add-umat';
           }

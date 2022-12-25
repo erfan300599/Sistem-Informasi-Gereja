@@ -117,7 +117,7 @@
 						<?php echo $data_cek['no_hp']; ?>
 					</td>
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td style="width: 150px">
 						<b>TTN</b>
 					</td>
@@ -146,7 +146,7 @@
 						/
 						<?php echo $data_cek['tanggal_baptis']; ?>
 					</td>
-				</tr>
+				</tr> -->
 
 
 			</tbody>

@@ -515,6 +515,8 @@ while ($data = $sql->fetch_assoc())
 								include "website/kegiatan/del_kegiatan.php";
 								break;
 
+							
+
 								//kalender
 							case 'data-kalender':
 								include "website/kalender/data_kalender.php";
@@ -715,6 +717,39 @@ while ($data = $sql->fetch_assoc())
 
 			document.getElementById("inputUmurA").innerHTML = ": " + age.toString();
 		});
+	</script>
+
+	<script>
+		function cariDesa(nama_kelurahan_desa) {
+			if (nama_kelurahan_desa.length >= 2) {
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+
+
+						let daftarDesa = JSON.parse(xhr.responseText);
+
+
+						$('#daftarDesaaN').empty();
+
+						for (let index = 0; index < daftarDesa.length; index++) {
+							let optValue = daftarDesa[index].id_kelurahan_desa;
+							let optText =
+								daftarDesa[index].nama_kelurahan_desa + ", " +
+								daftarDesa[index].nama_kecamatan + ", " +
+								daftarDesa[index].nama_kota_kabupaten + ", " +
+								daftarDesa[index].nama_provinsi;
+
+							$('#daftarDesaaN').append("<option value=" + optValue + ">" + optText + "</option>");
+						}
+					}
+				}
+
+				xhr.open('Get', `indonesia.php?namaDesa=${nama_kelurahan_desa}`, true);
+				// ?page=laporan-kub-umat
+				xhr.send();
+			}
+		}
 	</script>
 
 </body>
