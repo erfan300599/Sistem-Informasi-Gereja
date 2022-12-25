@@ -154,8 +154,8 @@
 				<div class="col-sm-3">
 					<select name="jenis_kelamin" id="jenis_kelamin" class="form-control" required>
 						<option value="" disabled selected>- Pilih Jenis Kelamin -</option>
-						<option>Laki-laki</option>
-						<option>Perempuan</option>
+						<option value="LK">Laki-laki</option>
+						<option value="PR">Perempuan</option>
 					</select>
 				</div>
 			</div>
@@ -346,7 +346,7 @@ if (isset($_POST['Simpan']))
             'Ada')";
 	$query_simpan = mysqli_query($koneksi, $sql_simpan);
 
-	if (isset($_POST['no_kk']))
+	if (($_POST['no_kk'] != ""))
 	{
 		// Simpan Data Kartu Keluarga
 		$sql_simpan2 = "INSERT INTO tb_kk (no_kk, kepala_keluarga, alamat, rt, rw, kec, kab, prov) VALUES (
@@ -360,7 +360,7 @@ if (isset($_POST['Simpan']))
 		'" . $_POST['prov'] . "')";
 		$query_simpan2 = mysqli_query($koneksi, $sql_simpan2);
 	}
-	if (isset($_POST['hubungan'])) 
+	if ($_POST['hubungan'] != "") 
 	{
 		$sql = "SELECT MAX(id_umat) FROM TB_UMAT";
 		$sql2 = mysqli_query($koneksi, $sql);

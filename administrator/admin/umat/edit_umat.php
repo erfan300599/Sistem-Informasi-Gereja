@@ -106,11 +106,11 @@ if (isset($_GET['kode']))
 						<option value="" disabled selected>- Pilih jenis kelamin -</option>
 						<?php
 						//menhecek data yg dipilih sebelumnya
-						if ($data_cek['jenis_kelamin'] == "LK") echo "<option value='Laki-laki' selected>Laki-laki</option>";
-						else echo "<option value='Laki-laki'>Laki-laki</option>";
+						if ($data_cek['jenis_kelamin'] == "LK") echo "<option value='LK' selected>Laki-laki</option>";
+						else echo "<option value='LK'>Laki-laki</option>";
 
-						if ($data_cek['jenis_kelamin'] == "PR") echo "<option value='Perempuan' selected>Perempuan</option>";
-						else echo "<option value='Perempuan'>Perempuan</option>";
+						if ($data_cek['jenis_kelamin'] == "PR") echo "<option value='PR' selected>Perempuan</option>";
+						else echo "<option value='PR'>Perempuan</option>";
 						?>
 					</select>
 				</div>
